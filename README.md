@@ -20,14 +20,14 @@ Combines multiple DOORS CSV files together into a master .csv with replaced matc
 ### Aday_findNAIndices.py:
 Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
 Requires the following libraries:
-     - os (For file name recognition)
-     - pandas (For csv read)
+  - os (For file name recognition)
+  - pandas (For csv read)
      
 #### Aday_DOORSDataCombiner.py:
 Combines multiple DOORS CSV files together into a master .csv with replaced matched references.
 Requires the following libraries:
-     - os (For file name recognition)
-     - pandas (For csv read)
+  - os (For file name recognition)
+  - pandas (For csv read)
 
 ### Aday_doc2csv.py:
 Reads all .docx files within the directory where this script is placed, then creates a .csv file with 'Text' and 'Header' columns:
