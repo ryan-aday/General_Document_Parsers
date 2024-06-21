@@ -15,7 +15,7 @@ depending on the size of strings being compared. When used for comparison assign
 Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
 
 ## Python Scripts
-### Aday_findNAIndices.m:
+### Aday_findNAIndices.py:
 Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
 ### Aday_doc2csv.py:
 Reads all .docx files within the directory where this script is placed, then creates a .csv file with 'Text' and 'Header' columns:
