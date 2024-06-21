@@ -11,8 +11,12 @@ Uses the Sorensen-Dice algorithm. Ideal for large string comparisons, but not ne
 #### Aday_Damareau_Levenshtein_txt2csv_Comparator.m: 
 Uses the Damareau-Levenshtein algorithm. Ideal for small to large string comparisons, with the downside of being much slower
 depending on the size of strings being compared. When used for comparison assignments, string size is a heavy bias and makes it less reliable. I suggest using a CNN.
+#### Aday_findNAIndices.m:
+Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
 
 ## Python Scripts
+### Aday_findNAIndices.m:
+Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
 ### Aday_doc2csv.py:
 Reads all .docx files within the directory where this script is placed, then creates a .csv file with 'Text' and 'Header' columns:
    - Text- All relevant sentences present within document
