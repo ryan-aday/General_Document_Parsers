@@ -15,9 +15,10 @@ except ImportError:
         To install these libraries, please enter:
         pip install os pandas
         """);
-
+###############################################################################################################
 # User Inputs
 folder_path = 'your/folder/path/here'
+###############################################################################################################
 
 # List all .csv files in the directory
 csv_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
