@@ -13,7 +13,7 @@ Uses the Damareau-Levenshtein algorithm. Ideal for small to large string compari
 depending on the size of strings being compared. When used for comparison assignments, string size is a heavy bias and makes it less reliable. I suggest using a CNN.
 
 ## Python Scripts
-### Aday_doc2csv:
+### Aday_doc2csv.py:
 Reads all .docx files within the directory where this script is placed, then creates a .csv file with 'Text' and 'Header' columns:
    - Text- All relevant sentences present within document
    - Header- The appropriate assigned header to each sentence
