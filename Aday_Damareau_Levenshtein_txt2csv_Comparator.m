@@ -1,22 +1,29 @@
 clear all; clc;
 warning('off');
 
-fprintf("Ryan Aday\nSorensen Dice File Comparer\n");
+fprintf("Ryan Aday\nDamareau-Levenshtein File Comparer\n");
 fprintf("Version 1.0");
 fprintf("Compares a main .txt file with content and indices with a .csv " + ...
 		"\nfile with content and indices to find the best match from the " + ...
-		".csv file using the Sorensen-Dice algorithm.\n");
-fprintf("NOTE: Run this for long strings of text only." + ...
-		"\nThis fails to accurately map for smaller string " + ...
-		"sizes due to higher significance for matched pairs" + ...
-		"relative to overall size.\n");
+		".csv file using the Damareau-Levenshtein algorithm.\n");
+fprintf("NOTE: Run this for either long or short strings of text only." + ...
+		"\nDownside is speed relative to the size of datasets fed.\n");
+		
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% User Inputs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
 % Specify the folder containing the .csv files
 folderPath = 'your/folder/path/here';
 
+% Specify tolerance threshold of minimum distance for matches
+% NOTE: Found by experiementation to be 0.52;
+DL_tol = 0.52;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Get a list of .csv files in the folder
+% Get a list of all files in the folder
+% NOTE: Written with the assumption that there are only 2 files present.
 csvFiles = dir(fullfile(folderPath, '*.csv');
 txtFiles = dir(fullfile(folderPath, '*.txt');
 % Initialize variables
@@ -51,7 +58,7 @@ fprintf("\nParcluster created.\n");
 tic
 
 % Iterate through each row of main_2
-fprintf("\nPerforming Sorensen Dice (O(n/prll processes)) time...\n\n");
+fprintf("\nPerforming Damareau-Levenshtein (O(m*n/prll processes)) time...\n\n");
 parfor i = 1:length(main_2)
 	% Compare main_2 with all rows of compare1 (from other .csv files)
 	% Implement Sorensen-Dice algorithm here (you can use external functions)
@@ -62,21 +69,27 @@ parfor i = 1:length(main_2)
 	if length(char(main_row)) < 5 } | ...
 		contains(char(main_row), 'figure', 'IgnoreCase', true)
 	else
-		max_corr = -Inf;
-		max_corr_idx = -1;
+		min_dist= Inf;
+		min_dist_idx = -1;
 		
 		for j = 1:length(compare_1)
-			corr = sSimilarity(char(main_row), char(compare_1(j)));
+			DL_length = lev(char(main_row), char(compare_1(j)));
 			
-			if corr > max_corr
-				max_corr = corr;
-				max_corr_idx = j;
+			if DL_length < min_dist
+				min_dist = DL_length;
+				min_dist_idx = j;
 			end
 		end
-		
-		similarRows{i} = char(compare_1(max_corr_idx));
-		similarRowsIdx{i} = char(compare_1_idx(max_corr_idx));
-		distance{i} = max_corr;
+
+
+		if min_dist <= DL_tol
+			similarRows{i} = char(compare_1(min_dist_idx));
+			similarRowsIdx{i} = char(compare_1_idx(min_dist_idx));
+		else
+			similarRows{i} = char(compare_1(min_dist_idx));
+			similarRowsIdx{i} = 'N/A';
+		end
+		distance{i} = min_dist;
 		
 	end
 	% Status timer (edited out for speed)
@@ -106,28 +119,30 @@ clearvars -except outputTable compare_1
 % Functions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Sorensen-Dice algorithm
-function similarity = sSimilarity(sa1, sa2)
-	% Compare two strings to see how similar they are.
-	% Answer is returned as a value of 0 to 1.
-	% 1 indicates a perfect similarity (100%) while 0 indicates no similarity (0%).
-	% Algorithm source site:
-	% www.catalysoft.com/articles/StrikeAMatch.html
+% Damareau-Levenshtein algorithm
+function d = sSimilarity(s, t)
+	% Levenshtein distance between strings and char arrays.
+	% lev(s,t) is the number of deletions, insertions
+	% or substitutions required to transform s to t.
+	% www.wikipedia.org/wiki/Levenshtein_distance
+
+	s = char(s);
+	t = char(t);
+	m = length(s);
+	n = length(t);
+	x = 0:n;
+	y = zeros(n, n+1);
 	
-	% Convert input strings to lowercase and remove whitespace (unused in this instance)
-	%s1 = regexprep(sa1, '\s', '');
-	%s2 = regexprep(sa2, '\s', '');
-	
-	% Get pairs of adjacent letters in each string
-	pairs_s1 = sa1(1:end-1) + sa1(2:end);
-	pairs_s2 = sa2(1:end-1) + sa2(2:end);
-	
-	% Calculate intersection of pairs
-	common_pairs = intersect(pairs_s1, pairs_s2);
-	
-	% Calculate similarity
-	similarity_num = 2 * numel(common_pairs);
-	similarity_den = numel(pairs_s1) + numel(pairs_s2);
-	similarity = similarity_num / similarity_den;
-	
+	for i = 1:m
+		y(1) = i;
+		for j = 1:n
+			c = (s(i) ~= t(j)); % c == 0 if chars match, 1 if not
+			y(j+1) = min([y(j)+1
+				x(j+1)+1
+				x(j)+c]);
+		end
+		% Swap
+		[x, y] = deal(y, x);
+	end
+	d = x(n+1)/m;
 end
