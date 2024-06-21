@@ -19,7 +19,7 @@ Combines multiple DOORS CSV files together into a master .csv with replaced matc
 ## Python Scripts
 ### Aday_findNAIndices.py:
 Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
-#### Aday_DOORSDataCombiner.m:
+#### Aday_DOORSDataCombiner.py:
 Combines multiple DOORS CSV files together into a master .csv with replaced matched references.
 ### Aday_doc2csv.py:
 Reads all .docx files within the directory where this script is placed, then creates a .csv file with 'Text' and 'Header' columns:
