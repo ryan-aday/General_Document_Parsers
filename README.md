@@ -1,7 +1,7 @@
 # General_Document_Parsers
 MATLAB and Python scripts that can facilitate Word (.docx) and CSV file parsing.
 All of these scripts are to be deployed by pasting them in a directory with the desired files.
-When calling these files, only the filename is needed for ease of convenience.
+When calling these files, only the filename/filepath is needed for ease of convenience. These are to be edited in the files themselves.
 
 ## MATLAB Scripts
 ### txt2csv Comparators:
@@ -13,10 +13,14 @@ Uses the Damareau-Levenshtein algorithm. Ideal for small to large string compari
 depending on the size of strings being compared. When used for comparison assignments, string size is a heavy bias and makes it less reliable. I suggest using a CNN.
 #### Aday_findNAIndices.m:
 Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
+#### Aday_DOORSDataCombiner.m:
+Combines multiple DOORS CSV files together into a master .csv with replaced matched references.
 
 ## Python Scripts
 ### Aday_findNAIndices.py:
 Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
+#### Aday_DOORSDataCombiner.m:
+Combines multiple DOORS CSV files together into a master .csv with replaced matched references.
 ### Aday_doc2csv.py:
 Reads all .docx files within the directory where this script is placed, then creates a .csv file with 'Text' and 'Header' columns:
    - Text- All relevant sentences present within document
