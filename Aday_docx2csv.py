@@ -79,9 +79,9 @@ if __name__ == '__main__':
 		from tqdm import tqdm;
 	except ImportError:
 		sys.exit("""
-			You need the os, re, python-docx, concurrent, and tqdm libraries.
+			You need the os, re, python-docx, concurrent, pandas, and tqdm libraries.
 			To install these libraries, please enter:
-			pip install os re python-docx concurrent tqdm
+			pip install os re python-docx concurrent tqdm pandas
 			""");
 	input_folder = os.getcwd();
 	output_csv = "output_csv";
