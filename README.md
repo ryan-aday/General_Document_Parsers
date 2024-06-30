@@ -19,8 +19,16 @@ Combines multiple DOORS CSV files together into a master .csv with replaced matc
 ## Python Scripts
 ### Aday_findNAIndices.py:
 Exports a .csv file containing the relevant data from indices that match with N/A data from specified columns.
-#### Aday_DOORSDataCombiner.py:
+Requires the following libraries:
+  - os (For file name recognition)
+  - pandas (For csv read)
+     
+### Aday_DOORSDataCombiner.py:
 Combines multiple DOORS CSV files together into a master .csv with replaced matched references.
+Requires the following libraries:
+  - os (For file name recognition)
+  - pandas (For csv read)
+
 ### Aday_doc2csv.py:
 Reads all .docx files within the directory where this script is placed, then creates a .csv file with 'Text' and 'Header' columns:
    - Text- All relevant sentences present within document
@@ -32,10 +40,10 @@ Nuances:
      - These are cached files, and will not be interpreted correctly by python-docx
    - Deletes all sentences that has a header unique to that sentence (classification stratification)
    - Requires the following libraries:
-	python-docx (For parsing through .docx documents)
-	os (For file name recognition)
-	pandas (For dataframe, csv write)
-	numpy (For NaN removal)
-	concurrent (For multithreading)
-	tqdm (For progress bars)
-	re (For regex)
+     - python-docx (For parsing through .docx documents)
+     - os (For file name recognition)
+     - pandas (For dataframe, csv write)
+     - numpy (For NaN removal)
+     - concurrent (For multithreading)
+     - tqdm (For progress bars)
+     - re (For regex)
