@@ -11,9 +11,9 @@ try:
     from docx import Document
 except ImportError:
     sys.exit("""
-        You need the re, fitz, pandas, and docx libraries.
+        You need the re, PyMuPDF, pandas, and docx libraries.
         To install these libraries, please enter:
-        pip install spacy fitz pandas docx
+        pip install spacy pymupdf pandas docx
         """)
 
 # Load spaCy model
