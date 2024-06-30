@@ -14,6 +14,7 @@ except ImportError:
         You need the re, PyMuPDF, pandas, and docx libraries.
         To install these libraries, please enter:
         pip install spacy pymupdf pandas docx
+        python -m spacy download en_core_web_sm
         """)
 
 # Load spaCy model
